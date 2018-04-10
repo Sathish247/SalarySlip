@@ -1,0 +1,10 @@
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\bin\Release\NLTD.EmployeePortal.SalarySlip.Utilities.dll
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\bin\Release\NLTD.EmployeePortal.SalarySlip.Utilities.pdb
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\bin\Release\itextsharp.dll
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\bin\Release\itextsharp.xml
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\obj\Release\NLTD.EmployeePortal.SalarySlip.Utilities.csprojResolveAssemblyReference.cache
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\obj\Release\NLTD.EmployeePortal.SalarySlip.Utilities.csproj.CoreCompileInputs.cache
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\obj\Release\NLTD.EmployeePortal.SalarySlip.Utilities.dll
+E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Utilities\obj\Release\NLTD.EmployeePortal.SalarySlip.Utilities.pdb

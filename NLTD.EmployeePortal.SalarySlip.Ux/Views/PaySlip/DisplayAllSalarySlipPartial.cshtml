@@ -1,0 +1,102 @@
+﻿@model IList<NLTD.EmployeePortal.SalarySlip.Common.DisplayModel.PaySlipItem>
+
+<style type="text/css">
+    .pdfIcon {
+        font-size: 20px;
+        color: black;
+    }
+
+    th {
+        font-size: 11px;
+        padding-left: 10px !important;
+    }
+
+    td {
+        font-size: 12px;
+    }
+
+    .list-group, .list-group-item {
+        background-color: transparent;
+        margin: 0;
+        border: none;
+    }
+</style>
+
+@if (ViewBag.ErrorMessage?.Count > 0)
+{
+    <div class="alert alert-danger fade in ">
+        <a href="#" class="close" data-dismiss="alert" style="text-decoration:none;">&times;</a>
+        <strong>Error!</strong>
+        <div class="list-group">
+            @foreach (string errMsg in ViewBag.ErrorMessage)
+            {
+                <span class="list-group-item">@errMsg</span>
+            }
+        </div>
+    </div>
+}
+@if(Model != null && Model.Count > 0)
+{
+    <table id="paySlipTable" class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                @if (ViewBag.ShowPDF)
+                {
+                    <th class="no-sort">
+                        <input type="checkbox" name="select_all" value="0" id="select-all"/>
+                    </th>
+                }
+                <th>
+                    @Html.DisplayName("Emp ID")
+                </th>
+                <th>
+                    @Html.DisplayName("Name")
+                </th>
+                <th>
+                    @Html.DisplayName("Email")
+                </th>
+                <th>
+                    @Html.DisplayName("Net Amount")
+                </th>
+                @if (ViewBag.ShowPDF)
+                {
+                    <th class="no-sort">
+                        @Html.DisplayName("PaySlip")
+                    </th>
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @if (ViewBag.ShowPDF)
+                    {
+                        <td>
+                            @Html.CheckBox("checkedValues", new {@value = item.EmployeeNumber})
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @item.NetAmount
+                    </td>
+                    @if (ViewBag.ShowPDF)
+                    {
+                        <td>
+                            <a href="@Url.Action("PreviewPaySlip", "PaySlip", new {paySlipFilePath = item.PaySlipFilePath})" target="_blank" class="fa fa-file-pdf-o pdfIcon"></a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

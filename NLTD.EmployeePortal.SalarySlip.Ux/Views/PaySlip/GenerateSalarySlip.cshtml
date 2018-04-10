@@ -1,0 +1,75 @@
+﻿<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#SalaryMonthYear').datetimepicker({
+            viewMode: 'months',
+            format: 'MM/YYYY',
+            defaultDate: moment().subtract(1, 'months'),
+        });
+    });
+</script>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">@Html.Raw("Generate Salary Slip ")<small>Step 2</small></h3>
+            </div>
+            <div class="box-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label for="SalaryMonthYear" class="control-label">Select Salary Month and Year : </label>
+                        </div>
+                        <div class="col-sm-2 col-sm-pull-1">
+                            <input type="text" class="form-control" id="SalaryMonthYear" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-info pull-left"
+                                    onclick="location.href = '@Url.Action("Index", "PaySlip")'">
+                                <span class="glyphicon glyphicon-fast-backward"></span> Back
+                            </button>
+                        </div>
+                        <div class="col-sm-offset-5 col-sm-3">
+                            <button id="GeneratePDF" type="button" class="btn btn-primary" onclick="GeneratePDF()">
+                                GeneratePDF
+                            </button>
+                            <button id="SendMail" type="button" class="btn btn-primary pull-right" onclick="SendMail()">
+                                <span class="glyphicon glyphicon-send"></span> SendMail
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divSalarySlip" class="col-sm-12"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Email Information</h4>
+            </div>
+            <div class="modal-body">
+                <p><span id="mailDialog" style="font-size: 14px"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
