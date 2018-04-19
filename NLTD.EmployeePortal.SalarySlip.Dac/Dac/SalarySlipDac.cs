@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -30,7 +31,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
             int foodCoupon;
             decimal lopDays;
             decimal payDays;
-            int empNumber;
+
             if (exceFileName != null)
             {
                 extension = Path.GetExtension(exceFileName);
@@ -46,53 +47,36 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                     break;
             }
             conString = string.Format(conString, Path.Combine(filePath, exceFileName));
-            string sheetName = string.Empty;
             DataTable dt = new DataTable();
-            try
+            using (OleDbConnection connExcel = new OleDbConnection(conString))
             {
-                using (OleDbConnection connExcel = new OleDbConnection(conString))
+                using (OleDbCommand cmdExcel = new OleDbCommand())
                 {
-                    using (OleDbCommand cmdExcel = new OleDbCommand())
+                    using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
                     {
-                        using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
-                        {
-                            cmdExcel.Connection = connExcel;
+                        cmdExcel.Connection = connExcel;
 
-                            //Get the name of First Sheet.
-                            connExcel.Open();
-                            DataTable dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                            sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString().Replace("''", "'");
-                            //Read Data from First Sheet. [{sheetName}]
-                            cmdExcel.CommandText = $"SELECT * From [{sheetName}]";
-                            odaExcel.SelectCommand = cmdExcel;
-                            odaExcel.Fill(dt);
-                            connExcel.Close();
-                        }
+                        //Get the name of First Sheet.
+                        connExcel.Open();
+                        DataTable dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                        //connExcel.Close();
+
+                        ////Read Data from First Sheet.
+                        //connExcel.Open();
+                        cmdExcel.CommandText = "SELECT * From [" + sheetName + "]";
+                        odaExcel.SelectCommand = cmdExcel;
+                        odaExcel.Fill(dt);
+                        connExcel.Close();
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                if (!string.IsNullOrEmpty(sheetName))
-                {
-                    string sheetErrorMsg = "Make sure that it does not include invalid characters or punctuation and that it is not too long.";
-                    if (e.Message.Contains(sheetErrorMsg))
-                    {
-                        errorList.Add($"The sheet name {sheetName} contains single quote or any invalid special character(s), Please remove it and try again.");
-                    }
-                }
-                else
-                {
-                    errorList.Add(e.Message);
-                }
-                return paySlipList;
             }
 
             XDocument document = XDocument.Load(Path.Combine(filePath, xmlFileName));
             DateTime payDateTime = new DateTime(year, month, 1);
             string payMonth = payDateTime.ToString("MMMM");
             string payYear = payDateTime.ToString("yyyy");
-            //DataColumnCollection dataColumn = dt.Columns;
+
             foreach (DataRow row in dt.Rows)
             {
                 usVisaFee = 0;
@@ -100,10 +84,10 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                 travelReimbursement = 0;
                 lopDays = 0;
                 payDays = 0;
-                empNumber = 0;
 
                 PaySlipItem paySlip = new PaySlipItem();
 
+                int empNumber = 0;
                 Int32.TryParse(Convert.ToString(row["Employee Number"]), out empNumber);
 
                 //if no employee number or name associated, just skip it.
@@ -113,8 +97,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                 }
 
                 paySlip.EmployeeNumber = empNumber;
-
-                paySlip.BasicAndDA = dt.Columns.Contains("1#Basic & DA") ? Convert.ToString(row["1#Basic & DA"]).ToRoundOffString(ref errorList) : string.Empty;
+                paySlip.BasicAndDA = Convert.ToString(row["1#Basic & DA"]).ToRoundOffString(ref errorList);
                 paySlip.HRA = Convert.ToString(row["2#House Rent Allowance"]).ToRoundOffString(ref errorList);
                 paySlip.SpecialAllowance = Convert.ToString(row["3#Special Allowance"]).ToRoundOffString(ref errorList);
                 paySlip.Conveyance = Convert.ToString(row["4#Conveyance"]).ToRoundOffString(ref errorList);
@@ -136,21 +119,20 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                 paySlip.VPF = Convert.ToString(row["VPF"]).ToRoundOffString(ref errorList);
                 paySlip.TotalDeductions = Convert.ToString(row["Total Deductions"]).ToRoundOffString(ref errorList);
                 paySlip.NetAmount = Convert.ToString(row["Net Payable"]).ToRoundOffString(ref errorList);
-
-                //paySlip.NewJoineeDate = Convert.ToString(row["New Joinee date"]);
                 paySlip.LOPDays = Convert.ToString(row["LOP days"]);
                 paySlip.PayYear = payYear;
                 paySlip.PayMonth = payMonth;
 
                 //Get Datas from XML.
                 XElement employee = (from node in document.Descendants("Employee")
-                                     where Convert.ToInt32(node.Element("EmployeeNumber")?.Value) == paySlip.EmployeeNumber
+                                     where Convert.ToInt32(node.Element("EMPLOYEENUMBER")?.Value) == paySlip.EmployeeNumber
                                      select node).FirstOrDefault();
 
                 if (employee != null)
                 {
-                    paySlip.EmployeeName = employee.Element("Name")?.Value;
-                    paySlip.Designation = employee.Element("Designation")?.Value;
+                    paySlip.EmployeeName = employee.Element("NAME")?.Value;
+                    paySlip.Designation = employee.Element("DESIGNATION")?.Value;
+
                     // Parsing the DOJ date time.
                     if (employee.Element("DOJ") != null && !string.IsNullOrWhiteSpace(employee.Element("DOJ").Value))
                     {
@@ -168,22 +150,22 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                         errorList.Add(string.Format(
                             "Date of joining for employee number {0} is not found in XML data file.", paySlip.EmployeeNumber));
                     }
-
+                    
                     //if the pay month and Date of Joining month are same then 
                     //we are taking DOJ as New Joinee Date.
                     if (paySlip.DOJ.Month == month && paySlip.DOJ.Year == year)
                     {
                         paySlip.NewJoineeDate = employee.Element("DOJ")?.Value;
                     }
-
-                    paySlip.Location = employee.Element("Location")?.Value;
-                    paySlip.Department = employee.Element("Department")?.Value;
+                    
+                    paySlip.Location = employee.Element("LOCATION")?.Value;
+                    paySlip.Department = employee.Element("DEPARTMENT")?.Value;
                     paySlip.PAN = employee.Element("PAN")?.Value;
                     paySlip.UAN = employee.Element("UAN")?.Value;
-                    paySlip.PFAccNo = employee.Element("PFAccNo")?.Value;
-                    paySlip.BankName = employee.Element("BankName")?.Value;
-                    paySlip.BankAccNo = employee.Element("BankAccNo")?.Value;
-                    paySlip.Email = employee.Element("email")?.Value;
+                    paySlip.PFAccNo = employee.Element("PFACCNO")?.Value;
+                    paySlip.BankName = employee.Element("BANKNAME")?.Value;
+                    paySlip.BankAccNo = employee.Element("BANKACCNO")?.Value;
+                    paySlip.Email = employee.Element("EMAIL")?.Value;
                 }
                 else
                 {
@@ -206,7 +188,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                             "Food coupon period Column has invalid number {0} for employee number {1}",
                             paySlip.FoodCoupon, paySlip.EmployeeNumber));
                 }
-                
+
                 if (!string.IsNullOrWhiteSpace(paySlip.TravelReimbursementOrOthers))
                 {
                     if (!Int32.TryParse(paySlip.TravelReimbursementOrOthers, out travelReimbursement))
@@ -294,17 +276,5 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
             }
             return paySlipList;
         }
-        //Commented May be used in future to check the column values in generic.
-        //public string GetValuesByColumnName(DataColumnCollection dataColumn, DataRow dataRow, string columnName, ref List<string> errorList)
-        //{
-        //    string returnValue = string.Empty;
-        //    if (dataColumn.Contains(columnName))
-        //    {
-        //        returnValue = Convert.ToString(dataRow[columnName]).ToRoundOffString(ref errorList);
-        //    }
-
-        //    return returnValue;
-        //}
-
     }
 }
