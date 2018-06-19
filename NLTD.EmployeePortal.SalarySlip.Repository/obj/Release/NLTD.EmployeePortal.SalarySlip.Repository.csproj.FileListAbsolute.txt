@@ -1,8 +1,7 @@
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Repository.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Repository.pdb
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.csprojResolveAssemblyReference.cache
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.csproj.CoreCompileInputs.cache
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.pdb
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Repository.dll
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Repository.pdb
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.csprojResolveAssemblyReference.cache
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.dll
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.pdb

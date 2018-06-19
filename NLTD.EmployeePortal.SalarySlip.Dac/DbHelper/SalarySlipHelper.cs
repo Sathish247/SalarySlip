@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using NLTD.EmployeePortal.SalarySlip.Common.DisplayModel;
+﻿using NLTD.EmployeePortal.SalarySlip.Common.DisplayModel;
 using NLTD.EmployeePortal.SalarySlip.Dac.Dac;
 using NLTD.EmployeePortal.SalarySlip.Repository;
+using System.Collections.Generic;
 
 namespace NLTD.EmployeePortal.SalarySlip.Dac.DbHelper
 {

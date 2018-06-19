@@ -1,15 +1,14 @@
-﻿using System;
+﻿using NLTD.EmployeePortal.SalarySlip.Common.DisplayModel;
+using NLTD.EmployeePortal.SalarySlip.Repository;
+using NLTD.EmployeePortal.SalarySlip.Utilities.Report;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using NLTD.EmployeePortal.SalarySlip.Common.DisplayModel;
-using NLTD.EmployeePortal.SalarySlip.Repository;
-using NLTD.EmployeePortal.SalarySlip.Utilities.Report;
 
 namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
 {
@@ -42,6 +41,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                 case ".xls": //Excel 97-03.
                     conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
                     break;
+
                 case ".xlsx": //Excel 07 and above.
                     conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
                     break;
@@ -125,13 +125,13 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
 
                 //Get Datas from XML.
                 XElement employee = (from node in document.Descendants("Employee")
-                                     where Convert.ToInt32(node.Element("EMPLOYEENUMBER")?.Value) == paySlip.EmployeeNumber
+                                     where Convert.ToInt32(node.Element("EmployeeNumber")?.Value) == paySlip.EmployeeNumber
                                      select node).FirstOrDefault();
 
                 if (employee != null)
                 {
-                    paySlip.EmployeeName = employee.Element("NAME")?.Value;
-                    paySlip.Designation = employee.Element("DESIGNATION")?.Value;
+                    paySlip.EmployeeName = employee.Element("Name")?.Value;
+                    paySlip.Designation = employee.Element("Designation")?.Value;
 
                     // Parsing the DOJ date time.
                     if (employee.Element("DOJ") != null && !string.IsNullOrWhiteSpace(employee.Element("DOJ").Value))
@@ -150,22 +150,22 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                         errorList.Add(string.Format(
                             "Date of joining for employee number {0} is not found in XML data file.", paySlip.EmployeeNumber));
                     }
-                    
-                    //if the pay month and Date of Joining month are same then 
+
+                    //if the pay month and Date of Joining month are same then
                     //we are taking DOJ as New Joinee Date.
                     if (paySlip.DOJ.Month == month && paySlip.DOJ.Year == year)
                     {
                         paySlip.NewJoineeDate = employee.Element("DOJ")?.Value;
                     }
-                    
-                    paySlip.Location = employee.Element("LOCATION")?.Value;
-                    paySlip.Department = employee.Element("DEPARTMENT")?.Value;
+
+                    paySlip.Location = employee.Element("Location")?.Value;
+                    paySlip.Department = employee.Element("Department")?.Value;
                     paySlip.PAN = employee.Element("PAN")?.Value;
                     paySlip.UAN = employee.Element("UAN")?.Value;
-                    paySlip.PFAccNo = employee.Element("PFACCNO")?.Value;
-                    paySlip.BankName = employee.Element("BANKNAME")?.Value;
-                    paySlip.BankAccNo = employee.Element("BANKACCNO")?.Value;
-                    paySlip.Email = employee.Element("EMAIL")?.Value;
+                    paySlip.PFAccNo = employee.Element("PFAccNo")?.Value;
+                    paySlip.BankName = employee.Element("BankName")?.Value;
+                    paySlip.BankAccNo = employee.Element("BankAccNo")?.Value;
+                    paySlip.Email = employee.Element("email")?.Value;
                 }
                 else
                 {
@@ -262,7 +262,6 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                     paySlip.PayDays = Convert.ToString(noOfPayDays);
                 }
 
-
                 if (string.IsNullOrWhiteSpace(paySlip.LOPDays))
                 {
                     paySlip.LOPDays = "0";
@@ -272,7 +271,6 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                                  paySlip.EmployeeNumber + "_" + paySlip.PayMonth.Substring(0, 3) +
                                  paySlip.PayYear + ".pdf");
                 paySlipList.Add(paySlip);
-
             }
             return paySlipList;
         }

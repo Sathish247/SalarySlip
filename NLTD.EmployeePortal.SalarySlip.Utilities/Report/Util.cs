@@ -54,12 +54,12 @@ namespace NLTD.EmployeePortal.SalarySlip.Utilities.Report
                 double dblAmt = (Convert.ToDouble(number));
                 //if ((dblAmt > 0) && number.StartsWith("0")) 
                 if (dblAmt >= 0)
-                {//test for zero or digit zero in a nuemric 
+                {//test for zero or digit zero in a numeric 
                     beginsZero = number.StartsWith("0");
 
                     int numDigits = number.Length;
                     int pos = 0;//store digit grouping 
-                    string place = "";//digit grouping name:hundres,thousand,etc... 
+                    string place = "";//digit grouping name:hundreds,thousand,etc... 
                     switch (numDigits)
                     {
                         case 1://ones' range 
@@ -100,7 +100,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Utilities.Report
                             break;
                     }
                     if (!isDone)
-                    {//if transalation is not done, continue...(Recursion comes in now!!) 
+                    {//if translation is not done, continue...(Recursion comes in now!!) 
                         if (number.Substring(0, pos) != "0" && number.Substring(pos) != "0")
                         {
                             try
@@ -271,7 +271,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Utilities.Report
                 message += Environment.NewLine;
             }
             if (string.IsNullOrWhiteSpace(message))
-                message = "An UnKnow Error Occured.";
+                message = "An UnKnow Error Occurred.";
 
             //If error file name is not provided by user then the default application path is used.
             if (string.IsNullOrWhiteSpace(path))
@@ -284,49 +284,5 @@ namespace NLTD.EmployeePortal.SalarySlip.Utilities.Report
 
             File.AppendAllText(path, message);
         }
-
-        //public static void GetValuesByColumnName(string colName, DataRow dataRow, ref PaySlipItem paySlipItem)
-        //{
-        //    try
-        //    {
-        //        if (colName.Trim().ToLower().Contains("number") && paySlipItem.EmployeeNumber == 0)
-        //        {
-        //            paySlipItem.EmployeeNumber = Convert.ToInt32(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("basic") && string.IsNullOrWhiteSpace(paySlipItem.BasicAndDA))
-        //        {
-        //            paySlipItem.BasicAndDA = Convert.ToString(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("house") && string.IsNullOrWhiteSpace(paySlipItem.HRA))
-        //        {
-        //            paySlipItem.HRA = Convert.ToString(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("special") && string.IsNullOrWhiteSpace(paySlipItem.SpecialAllowance))
-        //        {
-        //            paySlipItem.SpecialAllowance = Convert.ToString(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("conveyance") && string.IsNullOrWhiteSpace(paySlipItem.Conveyance))
-        //        {
-        //            paySlipItem.Conveyance = Convert.ToString(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("flexi") && string.IsNullOrWhiteSpace(paySlipItem.FlexiComponents))
-        //        {
-        //            paySlipItem.FlexiComponents = Convert.ToString(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("gross") && string.IsNullOrWhiteSpace(paySlipItem.Gross))
-        //        {
-        //            paySlipItem.Gross = Convert.ToString(dataRow[colName]);
-        //        }
-        //        else if (colName.Trim().ToLower().Contains("data") && string.IsNullOrWhiteSpace(paySlipItem.DataCardCharges))
-        //        {
-        //            paySlipItem.DataCardCharges = Convert.ToString(dataRow[colName]);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        Console.WriteLine(ex);
-        //    }
-        //}
     }
 }
