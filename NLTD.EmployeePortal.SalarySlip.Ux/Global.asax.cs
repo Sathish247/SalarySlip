@@ -35,7 +35,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Do nothing.
             }

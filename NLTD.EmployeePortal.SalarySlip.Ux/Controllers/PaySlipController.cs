@@ -300,7 +300,6 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux.Controllers
         }
         private void ValidateXml(string path, string xmlFileName, ref List<string> errorList)
         {
-            bool validPaySlipList = true;
             try
             {
                 XDocument document = XDocument.Load(Path.Combine(path, xmlFileName));
@@ -335,7 +334,6 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux.Controllers
         }
         private void ValidateExcel(List<PaySlipItem> paySlipList, ref List<string> errorList)
         {
-            bool validPaySlipList = true;
             var empDuplications = paySlipList.AsEnumerable().GroupBy(payslip => payslip.EmployeeNumber).Where(gr => gr.Count() > 1).ToList();
 
             if (empDuplications.Any())

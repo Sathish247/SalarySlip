@@ -1,4 +1,5 @@
 D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
 D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
+D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.csprojResolveAssemblyReference.cache
 D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
 D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb

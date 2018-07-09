@@ -19,7 +19,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
             //Nothing to dispose.
         }
 
-        public List<PaySlipItem> GetPaySlipItems(string filePath, string exceFileName, string xmlFileName, int month, int year, ref List<string> errorList)
+        public List<PaySlipItem> GetPaySlipItems(string filePath, string excelFileName, string xmlFileName, int month, int year, ref List<string> errorList)
         {
             List<PaySlipItem> paySlipList = new List<PaySlipItem>();
             string conString = string.Empty;
@@ -31,9 +31,9 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
             decimal lopDays;
             decimal payDays;
 
-            if (exceFileName != null)
+            if (excelFileName != null)
             {
-                extension = Path.GetExtension(exceFileName);
+                extension = Path.GetExtension(excelFileName);
             }
 
             switch (extension)
@@ -46,7 +46,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                     conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
                     break;
             }
-            conString = string.Format(conString, Path.Combine(filePath, exceFileName));
+            conString = string.Format(conString, Path.Combine(filePath, excelFileName));
             DataTable dt = new DataTable();
             using (OleDbConnection connExcel = new OleDbConnection(conString))
             {
@@ -197,7 +197,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                             paySlip.TravelReimbursementOrOthers, paySlip.EmployeeNumber));
                 }
                 //As per Suresh's suggestion the other amount are included with travel reimbursement.
-                travelReimbursement = travelReimbursement + usVisaFee + foodCoupon;
+                travelReimbursement = travelReimbursement + usVisaFee;
                 paySlip.TravelReimbursementOrOthers = travelReimbursement == 0 ? "" : travelReimbursement.ToString();
 
                 //Employee is salaried for the full day of this month.

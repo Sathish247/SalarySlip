@@ -52,7 +52,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux.AppHelpers
                     smtp.Send(mailMessage);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (string.IsNullOrEmpty(path))
                     path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["SalarySlipPath"]);
@@ -69,11 +69,17 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux.AppHelpers
             try
             {
                 var subject = "PaySlip for " + paySlip.PayMonth + " " + paySlip.PayYear;
-                var body = "*** This is an automated message from Salary Slip. Please do not reply to this email id. ***";
+                var body = "*** This is an automated message. Please do not reply to this email id. ***";
+
+                if (!String.IsNullOrWhiteSpace(paySlip.FoodCoupon))
+                {
+                    body = "An amount of Rs " + paySlip.FoodCoupon + " has been loaded in your HDFC food card.<br/><br/>" + body;
+                }
+
                 SendHtmlFormattedEmail(paySlip.Email, new List<string>(), subject, body, "", paySlip.PaySlipFilePath);
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 1;
             }
