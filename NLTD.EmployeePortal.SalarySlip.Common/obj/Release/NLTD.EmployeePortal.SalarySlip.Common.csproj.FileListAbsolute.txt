@@ -1,8 +1,0 @@
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\bin\Release\Elmah.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\bin\Release\Elmah.Mvc.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.csproj.CoreCompileInputs.cache
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
-E:\NLTD\SalarySlip\NLTD.EmployeePortal.SalarySlip.Common\obj\Release\NLTD.EmployeePortal.SalarySlip.Common.csprojResolveAssemblyReference.cache

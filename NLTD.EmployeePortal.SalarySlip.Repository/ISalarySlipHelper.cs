@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NLTD.EmployeePortal.SalarySlip.Common.DisplayModel;
+using System;
 using System.Collections.Generic;
-using NLTD.EmployeePortal.SalarySlip.Common.DisplayModel;
 
 namespace NLTD.EmployeePortal.SalarySlip.Repository
 {

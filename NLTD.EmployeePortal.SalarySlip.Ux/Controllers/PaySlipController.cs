@@ -300,26 +300,25 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux.Controllers
         }
         private void ValidateXml(string path, string xmlFileName, ref List<string> errorList)
         {
-            bool validPaySlipList = true;
             try
             {
                 XDocument document = XDocument.Load(Path.Combine(path, xmlFileName));
 
-                var employeeDups = document.Descendants("Employee").GroupBy(x => x.Element("EMAIL")?.Value)
+                var employeeDups = document.Descendants("Employee").GroupBy(x => x.Element("email")?.Value)
                     .Where(gr => gr.Count() > 1).Select(x => x.Key).ToList();
                 if (employeeDups.Any())
                     errorList.Add(string.Format("Duplication found in employee email(s): {0}",
                         String.Join(", ", employeeDups.Select(dupl => dupl))));
 
-                int emptyEmail = document.Descendants("Employee").Where(x => string.IsNullOrWhiteSpace(x.Element("EMAIL")?.Value)).ToList().Count;
+                int emptyEmail = document.Descendants("Employee").Where(x => string.IsNullOrWhiteSpace(x.Element("email")?.Value)).ToList().Count;
                 if (emptyEmail > 0)
                     errorList.Add(string.Format("{0} record(s) has no email id.", emptyEmail));
 
-                int emptyEmpId = document.Descendants("Employee").Where(x => string.IsNullOrWhiteSpace(x.Element("EMPLOYEENUMBER")?.Value)).ToList().Count;
+                int emptyEmpId = document.Descendants("Employee").Where(x => string.IsNullOrWhiteSpace(x.Element("EmployeeNumber")?.Value)).ToList().Count;
                 if (emptyEmpId > 0)
                     errorList.Add(string.Format("{0} record(s) has no emp id.", emptyEmpId));
 
-                var employeeIdDups = document.Descendants("Employee").GroupBy(x => x.Element("EMPLOYEENUMBER")?.Value != String.Empty ? x.Element("EMPLOYEENUMBER")?.Value : "0")
+                var employeeIdDups = document.Descendants("Employee").GroupBy(x => x.Element("EmployeeNumber")?.Value != String.Empty ? x.Element("EmployeeNumber")?.Value : "0")
                     .Where(gr => gr.Count() > 1).Select(x => x.Key).ToList();
                 if (employeeIdDups.Any())
                     errorList.Add(string.Format("Duplication found in emp id(s) in XML file: {0}",
@@ -335,7 +334,6 @@ namespace NLTD.EmployeePortal.SalarySlip.Ux.Controllers
         }
         private void ValidateExcel(List<PaySlipItem> paySlipList, ref List<string> errorList)
         {
-            bool validPaySlipList = true;
             var empDuplications = paySlipList.AsEnumerable().GroupBy(payslip => payslip.EmployeeNumber).Where(gr => gr.Count() > 1).ToList();
 
             if (empDuplications.Any())
