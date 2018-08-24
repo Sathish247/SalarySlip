@@ -71,6 +71,9 @@ namespace NLTD.EmployeePortal.SalarySlip.Dac.Dac
                     }
                 }
             }
+            //errorList.Add("Columns: " + dt.Columns.Count.ToString());
+            //errorList.Add("Rows: " + dt.Rows.Count.ToString());
+
 
             XDocument document = XDocument.Load(Path.Combine(filePath, xmlFileName));
             DateTime payDateTime = new DateTime(year, month, 1);

@@ -127,7 +127,7 @@ namespace NLTD.EmployeePortal.SalarySlip.Utilities.Report
         private static string Tens(string number)
         {
             int _Number = Convert.ToInt32(number);
-            string name = null;
+            string name = "";
             switch (_Number)
             {
                 case 10:

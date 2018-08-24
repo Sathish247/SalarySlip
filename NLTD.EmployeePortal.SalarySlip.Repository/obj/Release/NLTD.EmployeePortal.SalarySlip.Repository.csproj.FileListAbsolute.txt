@@ -1,7 +1,0 @@
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Repository.dll
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Repository.pdb
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.dll
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\bin\Release\NLTD.EmployeePortal.SalarySlip.Common.pdb
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.csprojResolveAssemblyReference.cache
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.dll
-D:\TFS\SalarySlip\NLTD.EmployeePortal.SalarySlip.Repository\obj\Release\NLTD.EmployeePortal.SalarySlip.Repository.pdb
